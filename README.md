@@ -16,6 +16,21 @@ Design and implement a microservice for an autonomous electric vehicle system wi
 
     Java 1.8
 
+**Steps:**
+
+	1. On the command line
+
+    		git clone https://github.com/spring-projects/spring-petclinic.git
+
+    	2. Inside Eclipse or STS
+
+    		File -> Import -> Maven -> Existing Maven project
+
+   		 Then either build on the command line ./mvnw generate-resources or 
+		 using the Eclipse launcher (right click on project and Run As -> Maven install) to generate the css. 
+		 Run the application main method in class com.benze.assignment.BenzeTestApplication.java
+		 by right clicking on it and choosing Run As -> Java Application
+    
 **Frameworks**
 
     Spring Boot
