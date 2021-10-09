@@ -1,9 +1,6 @@
 # Getting Started
 
-**Autonomous electric vehicles**
-
-**PROBLEM STATEMENT**
-
+**Autonomous electric vehicles - PROBLEM STATEMENT**
 
 Design and implement a microservice for an autonomous electric vehicle system with the following features:
 
@@ -75,4 +72,3 @@ Design and implement a microservice for an autonomous electric vehicle system wi
 
 
 
-# mbrd
