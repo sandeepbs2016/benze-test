@@ -23,6 +23,7 @@ import com.benze.assignment.entity.Distance;
 import com.benze.assignment.entity.Errors;
 import com.benze.assignment.entity.Response;
 import com.benze.assignment.entity.Station;
+import com.benze.assignment.entity.SuccessResponse;
 import com.google.gson.Gson;
 
 @Service
@@ -107,11 +108,11 @@ public class CarService {
 		Errors error = new Errors();
 
 		if ((car == null || distance == null || chargingStation == null)
-				|| ((null != car.getError() && "null" != car.getError() && car.getError().equalsIgnoreCase("Invalid"))
+				|| ((null != car.getError() && "null" != car.getError() && car.getError().contains("Invalid"))
 						|| (null != distance.getError() && "null" != distance.getError()
-								&& distance.getError().equalsIgnoreCase("Invalid"))
+								&& distance.getError().contains("Invalid"))
 						|| (null != chargingStation.getError() && "null" != chargingStation.getError()
-								&& chargingStation.getError().equalsIgnoreCase("Invalid")))) {
+								&& chargingStation.getError().contains("Invalid")))) {
 
 			return prepareTechicalErrorResponse();
 
@@ -120,9 +121,9 @@ public class CarService {
 		return checkForTravel(car, distance, chargingStation, error);
 	}
 
-	private Response checkForTravel(Car car, Distance distance, ChargingStation chargingStation, Errors error) {
+	private SuccessResponse checkForTravel(Car car, Distance distance, ChargingStation chargingStation, Errors error) {
 
-		Response response = new Response();
+		SuccessResponse response = new SuccessResponse();
 
 		List<Station> stationLst = new ArrayList<>();
 
@@ -219,7 +220,7 @@ public class CarService {
 		if (null != stations && stations.size() > 0) {
 			response.setChargingStations(stations);
 		}
-		response.setTransactionId(String.valueOf(new Date().getTime()));
+		response.setTransactionId(new Date().getTime());
 		response.setVin(car.getVin());
 		response.setSource(distance.getSource());
 		response.setDestination(distance.getDestination());
@@ -273,7 +274,7 @@ public class CarService {
 
 		errorList.add(errors);
 
-		response.setTransactionId(String.valueOf(new Date().getTime()));
+		response.setTransactionId(new Date().getTime());
 		response.setErrors(errorList);
 
 		return response;
