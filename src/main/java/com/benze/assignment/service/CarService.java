@@ -107,15 +107,16 @@ public class CarService {
 
 		Errors error = new Errors();
 
-		if ((car == null || distance == null || chargingStation == null)
+		if (null != source && null != destination && ("Home".equalsIgnoreCase(source) && !"Power Plant".equalsIgnoreCase(destination))) {
+
+			if ((car == null || distance == null || chargingStation == null)
 				|| ((null != car.getError() && "null" != car.getError() && car.getError().contains("Invalid"))
-						|| (null != distance.getError() && "null" != distance.getError()
-								&& distance.getError().contains("Invalid"))
+					|| (null != distance.getError() && "null" != distance.getError() && distance.getError().contains("Invalid"))
 						|| (null != chargingStation.getError() && "null" != chargingStation.getError()
-								&& chargingStation.getError().contains("Invalid")))) {
+							&& chargingStation.getError().contains("Invalid")))) {
 
-			return prepareTechicalErrorResponse();
-
+				return prepareTechicalErrorResponse();
+			}
 		}
 
 		return checkForTravel(car, distance, chargingStation, error);
@@ -147,7 +148,7 @@ public class CarService {
 
 		} else {
 
-			if (startLevel > 0) {
+			if (startLevel > target) {
 				isChargingRequired = false;
 			}
 		}
@@ -204,6 +205,10 @@ public class CarService {
 
 		// stations.stream().forEach(a -> System.out.print(a+" "));
 
+		if (startLevel > target && (null == stations || stations.size() == 0)) {
+			isChargingRequired = false;
+		}
+		
 		if (isChargingRequired && (null == stations || stations.size() == 0)) {
 
 			List<Errors> errorList = new ArrayList<>();
